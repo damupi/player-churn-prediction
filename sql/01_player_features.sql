@@ -10,7 +10,7 @@ WITH events AS (
     TIMESTAMP_MICROS(event_timestamp) AS event_ts,
     (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'engagement_time_msec') AS engagement_time_msec,
     geo.country,
-    device.operating_system,
+    platform AS operating_system,  -- device.operating_system is often empty; platform never is
     device.language
   FROM `firebase-public-project.analytics_153293282.events_*`
 ),
@@ -22,6 +22,12 @@ players AS (
     MAX(event_ts) AS last_seen
   FROM events
   GROUP BY user_pseudo_id
+),
+
+data_end AS (
+  -- last event in the whole export; players first seen within 24h of it
+  -- have not had the chance to come back yet, so their label is unknowable
+  SELECT MAX(event_ts) AS max_ts FROM events
 ),
 
 labelled AS (
@@ -76,4 +82,7 @@ SELECT
 FROM labelled l
 JOIN context c USING (user_pseudo_id)
 JOIN first_day f USING (user_pseudo_id)
+CROSS JOIN data_end d
 WHERE l.bounced = 0
+  -- right-censoring guard: they need a full day after their first 24h to be labelled fairly
+  AND l.first_seen < TIMESTAMP_SUB(d.max_ts, INTERVAL 48 HOUR)

@@ -1,0 +1,131 @@
+{
+  "players": 8984,
+  "churn_rate": 0.223,
+  "train_size": 7187,
+  "test_size": 1797,
+  "models": {
+    "logistic_regression": {
+      "cv_roc_auc_mean": 0.694,
+      "cv_roc_auc_std": 0.016,
+      "roc_auc": 0.683,
+      "pr_auc": 0.342,
+      "threshold": 0.5,
+      "precision": 0.344,
+      "recall": 0.67,
+      "confusion_matrix": {
+        "tn": 885,
+        "fp": 512,
+        "fn": 132,
+        "tp": 268
+      },
+      "top_20pct": {
+        "share_contacted": 0.2,
+        "churn_rate_in_top": 0.384,
+        "base_churn_rate": 0.223,
+        "lift": 1.73,
+        "share_of_all_churners_reached": 0.345
+      }
+    },
+    "gradient_boosting": {
+      "cv_roc_auc_mean": 0.754,
+      "cv_roc_auc_std": 0.011,
+      "roc_auc": 0.735,
+      "pr_auc": 0.412,
+      "threshold": 0.5,
+      "precision": 0.384,
+      "recall": 0.655,
+      "confusion_matrix": {
+        "tn": 977,
+        "fp": 420,
+        "fn": 138,
+        "tp": 262
+      },
+      "top_20pct": {
+        "share_contacted": 0.2,
+        "churn_rate_in_top": 0.468,
+        "base_churn_rate": 0.223,
+        "lift": 2.1,
+        "share_of_all_churners_reached": 0.42
+      }
+    }
+  },
+  "best_model": "gradient_boosting",
+  "feature_importance": [
+    {
+      "feature": "engagement_seconds",
+      "auc_drop": 0.1135,
+      "std": 0.0153
+    },
+    {
+      "feature": "levels_started",
+      "auc_drop": 0.0497,
+      "std": 0.0065
+    },
+    {
+      "feature": "sessions",
+      "auc_drop": 0.0429,
+      "std": 0.0074
+    },
+    {
+      "feature": "country",
+      "auc_drop": 0.0205,
+      "std": 0.0036
+    },
+    {
+      "feature": "content_selected",
+      "auc_drop": 0.0157,
+      "std": 0.0034
+    },
+    {
+      "feature": "screen_views",
+      "auc_drop": 0.0132,
+      "std": 0.0034
+    },
+    {
+      "feature": "operating_system",
+      "auc_drop": 0.0126,
+      "std": 0.0021
+    },
+    {
+      "feature": "scores_posted",
+      "auc_drop": 0.0109,
+      "std": 0.0023
+    },
+    {
+      "feature": "first_day_of_week",
+      "auc_drop": 0.0037,
+      "std": 0.0017
+    },
+    {
+      "feature": "levels_failed",
+      "auc_drop": 0.0035,
+      "std": 0.0017
+    },
+    {
+      "feature": "levels_reset",
+      "auc_drop": 0.0017,
+      "std": 0.002
+    },
+    {
+      "feature": "levels_completed",
+      "auc_drop": 0.0013,
+      "std": 0.0012
+    },
+    {
+      "feature": "first_hour",
+      "auc_drop": -0.0041,
+      "std": 0.0019
+    }
+  ],
+  "logistic_coefficients_behaviour": {
+    "behaviour__sessions": -0.408,
+    "behaviour__scores_posted": -0.336,
+    "behaviour__levels_failed": -0.273,
+    "behaviour__levels_reset": -0.084,
+    "behaviour__content_selected": 0.014,
+    "behaviour__levels_completed": 0.025,
+    "behaviour__screen_views": 0.15,
+    "behaviour__engagement_seconds": 0.63,
+    "behaviour__levels_started": 0.685
+  }
+}
